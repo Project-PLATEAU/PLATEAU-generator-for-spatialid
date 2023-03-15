@@ -1,0 +1,26 @@
+html, body, input, button {
+  font-size: 14pt;
+}
+button {
+  position: absolute;
+  right: 8px;
+}
+label {
+  display: inline-block;
+  width: 500px;
+}
+.form {
+  margin: 2px 0;
+}
+#message {
+  position: absolute;
+  right: 8px;
+  bottom: 32px;
+  display: block;
+  border: 1px solid #f00;
+  background-color: #fff;
+  padding: 4px;
+}
+.space {
+  margin: 8px 0px !important;
+}

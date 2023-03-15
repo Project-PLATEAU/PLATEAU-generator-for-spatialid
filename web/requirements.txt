@@ -1,0 +1,4 @@
+flask
+pyproj
+numpy
+mapbox-vector-tile

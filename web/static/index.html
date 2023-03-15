@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.102/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.102/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link href="./static/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="form">
+      <form onsubmit="uploadVoxels(this); return false;">
+        <input type="checkbox" id="chk_voxels" disabled>
+        <label for="file_voxels">３次元空間IDボクセル（CSV）</label>
+        <input type="file" class="form-control" id="file_voxels" name="file" accept=".csv">
+        <button type="submit">アップロード</button>
+      </form>
+    </div>
+    <div class="form">
+      <form onsubmit="uploadTiles(this); return false;">
+        <input type="checkbox" id="chk_tiles" disabled>
+        <label for="file_tiles">3D都市モデル（3D Tiles の ZIPアーカイブ）</label>
+        <input type="file" id="file_tiles" name="file" accept=".zip">
+        <button type="submit">アップロード</button>
+      </form>
+    </div>
+    <div id="cesiumContainer"></div>
+    <div id="message"></div>
+    <script src="./static/index.js"></script>
+    <script src="./static/attribute.js"></script>
+  </body>
+</html>
