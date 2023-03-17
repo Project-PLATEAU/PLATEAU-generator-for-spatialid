@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>空間IDを付与した3D都市モデル生成ツール | TODO: 全体タイトル </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="空間IDを付与した3D都市モデル生成ツール | TODO: 全体タイトル ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="空間idを付与した3d都市モデル生成ツール">空間IDを付与した3D都市モデル生成ツール</h1>
+
+<h2 id="citygml-から-地物idgml_idと空間idのペアリストを生成">CityGML から 地物ID（gml_id）と空間IDのペアリストを生成</h2>
+<ol>
+<li><p>コマンドプロンプト（Windows）またはターミナル（macOS / Linux）を起動し、ツールのディレクトリに移動します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; cd command
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ cd command
+</code></pre>
+</li>
+<li><p>Python 仮想環境を有効化します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; .venv\Scripts\Activate
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ source .venv/bin/activate
+</code></pre>
+</li>
+<li><p>CityGML から 地物ID（gml_id）と空間IDのペアリストを生成し CSV 出力します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; python citygml2id.py [コマンド引数]
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ python citygml2id.py [コマンド引数]
+</code></pre>
+<p>コマンド引数は以下の通りです。</p>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+<th>値</th>
+<th>デフォルト値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>input_file_or_dir</td>
+<td>CityGMLのファイルのパス（<code>*.gml</code>）または上位ディレクトリのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>output_file_or_dir</td>
+<td>地物IDと空間IDのペアリストのファイルのパス（<code>*.csv</code>）または上位ディレクトリのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--lod</td>
+<td>処理するジオメトリの最大LOD</td>
+<td><code>1</code>, <code>2</code>, <code>3</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>--grid-type</td>
+<td>グリッドタイプ</td>
+<td><code>zfxy</code></td>
+<td><code>zfxy</code></td>
+</tr>
+<tr>
+<td>--grid-level</td>
+<td>グリッドのズームレベル</td>
+<td></td>
+<td><code>20</code></td>
+</tr>
+<tr>
+<td>--grid-size</td>
+<td>グリッドのサイズ。x y z の順に指定。x のみ指定した場合は y z にも同じ値を適用。将来拡張用。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--grid-crs</td>
+<td>グリッドの座標参照系のEPSG番号。将来拡張用。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--id</td>
+<td>IDフィルタ。処理するデータを絞り込む際に gml:id の値を複数指定可能。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--extract</td>
+<td>空間IDが付与された CityGML から、空間IDを抽出し、CSVへ出力する場合に指定。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--extrude</td>
+<td>２次元データに付与する高さの最小値と最大値（単位：m）。--extract オプション指定時のみ有効。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--interpolate</td>
+<td>立体（Solid）内側の空洞をボクセルで埋める場合に指定。Solid形状を持つ「Building（建築物）」「CityFurniture（都市設備）」「Vegetation（植生）」を空間IDに変換する際に使用するオプション。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--merge</td>
+<td>上位の空間IDに統合（最適化）する場合に指定。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--debug</td>
+<td>デバッグログ出力および一時ファイル保持を有効にする場合に指定。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>-h</td>
+<td>使い方を表示。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>使用例</p>
+</li>
+</ol>
+<p>TODO:</p>
+<h2 id="citygml-および-地物idgml_idと空間idのペアリストから空間idが付与されたcitygmlを生成">CityGML および 地物ID（gml_id）と空間IDのペアリストから空間IDが付与されたCityGMLを生成</h2>
+<ol>
+<li><p>コマンドプロンプト（Windows）またはターミナル（macOS / Linux）を起動し、ツールのディレクトリに移動します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; cd command
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ cd command
+</code></pre>
+</li>
+<li><p>Python 仮想環境を有効化します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; .venv\Scripts\Activate
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ source .venv/bin/activate
+</code></pre>
+</li>
+<li><p>CityGML から 地物ID（gml_id）と空間IDのペアリストを生成し CSV 出力します。</p>
+<p>Windows の場合</p>
+<pre><code> &gt; python id2citygml.py [コマンド引数]
+</code></pre>
+<p>macOS / Linux の場合</p>
+<pre><code> $ python id2citygml.py [コマンド引数]
+</code></pre>
+<p>コマンド引数は以下の通りです。</p>
+<table>
+<thead>
+<tr>
+<th>引数</th>
+<th>説明</th>
+<th>値</th>
+<th>デフォルト値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>citygml_file_or_dir</td>
+<td>CityGMLのファイルのパス(*.gml)または上位ディレクトリのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>id_file_or_dir</td>
+<td>地物ID-空間IDペアリストのファイルのパス(*.csv)または上位ディレクトリのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>output_file_or_dir</td>
+<td>空間IDを付与した CityGML のファイルのパス(*.gml)または上位ディレクトリのパス</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>--spatialid</td>
+<td>空間IDの付与方法</td>
+<td><code>embedding</code>: CityGMLファイルに空間IDを直接付与 <br> <code>reference</code>: 地物ID-空間IDペアリスト（CSVファイル）への相対パスを記録⇒CityGMLファイルへの空間IDの直接付与は行わず、外部ファイル参照のみで空間IDと紐付けする場合に使用 <br> <code>both</code>: CityGMLファイルへの空間ID直接付与とCSVファイルへの相対パス記録の両者を実行</td>
+<td><code>both</code></td>
+</tr>
+<tr>
+<td>-h</td>
+<td>使い方を表示</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>使用例</p>
+</li>
+</ol>
+<p>TODO:</p>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      TODO: 全体タイトル
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

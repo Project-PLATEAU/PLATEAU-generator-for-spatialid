@@ -1,0 +1,107 @@
+{
+  "sitemap": {
+    "fileOptions": {
+      "api/*": {
+        "changefreq": "daily"
+      }
+    },
+    "baseUrl": "https://spatial-id-999.github.io/PLATEAU-generator-for-spatialid/",
+    "changefreq": "weekly"
+  },
+  "homepages": [],
+  "source_base_path": "/Users/yokoyama/workspace/voxel/plateau/pages",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "sPxJ+kNJwp0iw1gXXrxozMDGF9SVWEQhl6VpkSQ5HEI="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/citygml.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/citygml.html",
+          "hash": "1XqJ3vxU9rRKiRLnEr5z4SM8vjH5UtRqv2KogPTpu2I="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/index.html",
+          "hash": "YHAq5FRzBHduX0LxLjWOCyszOO/r14thUoTNIznsFcU="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/setup.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/setup.html",
+          "hash": "o86KcaKuBcV/NYWNRH3xzSQOEO3ZCwgaGM6k48GxOQM="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/spatialid.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/spatialid.html",
+          "hash": "IdDJ9KG27zEdmAEJaflJNAi4sVDOIgqSV7Wv/GgjcUI="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "manual/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "manual/toc.html",
+          "hash": "+P6zqzmFtB80BywPESkDIPeNUdv74YAHt48W/Af9SBA="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "torbzyZYAO9c5e0wKnkgsb/bXMuHNFHzJjanHG7O0nM="
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
