@@ -5,11 +5,11 @@
         "changefreq": "daily"
       }
     },
-    "baseUrl": "https://spatial-id-999.github.io/PLATEAU-generator-for-spatialid/",
+    "baseUrl": "https://project-plateau.github.io/PLATEAU-generator-for-spatialid/",
     "changefreq": "weekly"
   },
   "homepages": [],
-  "source_base_path": "/Users/yokoyama/workspace/voxel/plateau/pages",
+  "source_base_path": "voxel/plateau/pages",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -26,7 +26,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "sPxJ+kNJwp0iw1gXXrxozMDGF9SVWEQhl6VpkSQ5HEI="
+          "hash": "zT0XM0rtBVTUi9tlh/1JLS/DqwrHuqhTL3HIU0OAUTU="
         }
       },
       "version": ""
@@ -37,18 +37,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/citygml.html",
-          "hash": "1XqJ3vxU9rRKiRLnEr5z4SM8vjH5UtRqv2KogPTpu2I="
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "manual/index.md",
-      "output": {
-        ".html": {
-          "relative_path": "manual/index.html",
-          "hash": "YHAq5FRzBHduX0LxLjWOCyszOO/r14thUoTNIznsFcU="
+          "hash": "plled+NX2FrDqNO7PYE7FJbECchvhPR8RhzSeLGC9vY="
         }
       },
       "version": ""
@@ -59,7 +48,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/setup.html",
-          "hash": "o86KcaKuBcV/NYWNRH3xzSQOEO3ZCwgaGM6k48GxOQM="
+          "hash": "OnQGwQMQfVJKtKemzHE7USLevjtu+hMigKMx775StUk="
         }
       },
       "version": ""
@@ -70,7 +59,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/spatialid.html",
-          "hash": "IdDJ9KG27zEdmAEJaflJNAi4sVDOIgqSV7Wv/GgjcUI="
+          "hash": "E2sEgSGoD64Yj2KlTqSOJb9pExTuxvb/IkWK5BlOJiM="
         }
       },
       "version": ""
@@ -81,7 +70,47 @@
       "output": {
         ".html": {
           "relative_path": "manual/toc.html",
-          "hash": "+P6zqzmFtB80BywPESkDIPeNUdv74YAHt48W/Af9SBA="
+          "hash": "IVfwAk2NAp6gGlw75YG2w1dfjLqIcLaPkeAydb18nDY="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/viewer01.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/viewer01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/viewer02.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/viewer02.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/viewer03.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/viewer03.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/viewer04.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/viewer04.png"
         }
       },
       "version": ""

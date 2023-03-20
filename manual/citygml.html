@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>空間IDを付与した3D都市モデル生成ツール | TODO: 全体タイトル </title>
+      <title>空間IDを付与した3D都市モデル生成ツール | PLATEAUのための空間ID生成ツール </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="空間IDを付与した3D都市モデル生成ツール | TODO: 全体タイトル ">
+      <meta name="title" content="空間IDを付与した3D都市モデル生成ツール | PLATEAUのための空間ID生成ツール ">
     
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -201,10 +201,31 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例</p>
+<li><p>使用例1: ファイル単位で変換する</p>
+<pre><code> $ python citygml2id.py udx/bldg/52372215_bldg_6697.gml udx/bldg/spatialid/52372215_bldg_6697_zl22_merged.csv --grid-type zfxy --grid-level22 --merge --interpolate
+</code></pre>
+<ul>
+<li>入力：52372215_bldg_6697.gml【3D都市モデル(CityGML)】</li>
+<li>出力：52372215_bldg_6697_zl22_merged.csv【地物IDと空間IDのペアリスト(CSV)】</li>
+<li>グリッドタイプ：ZFXY</li>
+<li>基準（最大）ズームレベル：22</li>
+<li>空洞部の空間ID生成：実施</li>
+<li>ズームレベル最適化：実施</li>
+</ul>
+</li>
+<li><p>使用例2: 標準製品仕様書が規定するフォルダ構成に対し一括処理をする</p>
+<pre><code> $ python citygml2id.py udx/bldg udx/bldg --grid-type zfxy --grid-level 20 –interpolate
+ $ python citygml2id.py udx/fld udx/fld --grid-type zfxy --grid-level 20
+</code></pre>
+<ul>
+<li>入力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
+<li>出力：gmlファイルが存在するフォルダの直下にspatialidフォルダを生成し、CSVファイルを格納</li>
+<li>グリッドタイプ：ZFXY</li>
+<li>基準（最大ズームレベル）：20</li>
+<li>空洞部の空間ID生成：Solid形状の建築物にのみ実施</li>
+</ul>
 </li>
 </ol>
-<p>TODO:</p>
 <h2 id="citygml-および-地物idgml_idと空間idのペアリストから空間idが付与されたcitygmlを生成">CityGML および 地物ID（gml_id）と空間IDのペアリストから空間IDが付与されたCityGMLを生成</h2>
 <ol>
 <li><p>コマンドプロンプト（Windows）またはターミナル（macOS / Linux）を起動し、ツールのディレクトリに移動します。</p>
@@ -223,7 +244,7 @@
 <pre><code> $ source .venv/bin/activate
 </code></pre>
 </li>
-<li><p>CityGML から 地物ID（gml_id）と空間IDのペアリストを生成し CSV 出力します。</p>
+<li><p>CityGML および 地物ID（gml_id）と空間IDのペアリストから空間IDが付与されたCityGMLを生成します。</p>
 <p>Windows の場合</p>
 <pre><code> &gt; python id2citygml.py [コマンド引数]
 </code></pre>
@@ -274,10 +295,28 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例</p>
+<li><p>使用例1: ファイル単位で変換する</p>
+<pre><code> $ python id2citygml.py udx/bldg/52372215_bldg_6697.gml udx/bldg/spatialid/52372215_bldg_6697_zl20.csv udx/bldg/52372215_bldg_6697.gml --spatialid both
+</code></pre>
+<ul>
+<li>入力：52372215_bldg_6697.gml</li>
+<li>地物IDと空間IDのペアリスト（CSV）：52372215_bldg_6697_zl20.csv</li>
+<li>出力：52372215_bldg_6697.gml</li>
+<li>空間IDの付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方</li>
+</ul>
+</li>
+<li><p>使用例2: 標準製品仕様書が規定するフォルダ構成に対し一括処理をする</p>
+<pre><code> $ python id2citygml.py udx/bldg udx/bldg udx/bldg --spatialid both
+ $ python id2citygml.py udx/fld udx/fld udx/fld --spatialid both
+</code></pre>
+<ul>
+<li>入力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
+<li>地物IDと空間IDのペアリスト（CSV）：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）内にあるspatialidフォルダ</li>
+<li>出力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
+<li>空間ID付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方</li>
+</ul>
 </li>
 </ol>
-<p>TODO:</p>
 </article>
           </div>
 
@@ -303,7 +342,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-      TODO: 全体タイトル
+      PLATEAUのための空間ID生成ツール
       
           </div>
         </div>

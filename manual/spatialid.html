@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>空間IDのメタデータ生成ツール | TODO: 全体タイトル </title>
+      <title>空間IDのメタデータ生成ツール | PLATEAUのための空間ID生成ツール </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="空間IDのメタデータ生成ツール | TODO: 全体タイトル ">
+      <meta name="title" content="空間IDのメタデータ生成ツール | PLATEAUのための空間ID生成ツール ">
     
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -201,20 +201,16 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例</p>
+<li><p>使用例：2次元の空間ID（地理院タイル(XYZタイル)）が付与されたCityGMLファイルから空間IDを抽出し、3次元の空間ID（ZFXYタイル）を生成する</p>
+<pre><code> $ python citygml2id.py udx/luse/523723_luse_6668.gml udx/luse/523723_luse_6668_zl20.csv --grid-type zfxy --extract --extrude -10.0 100.0
+</code></pre>
+<ul>
+<li>入力：523723_luse_6668.gml</li>
+<li>出力：523723_luse_6668_zl20.csv</li>
+<li>空間IDを生成する標高値の範囲：-10mから100m</li>
+</ul>
 </li>
 </ol>
-<p>2次元の空間ID（地理院タイル(XYZタイル)）が付与されたCityGMLファイルから空間IDを抽出し、以下の条件で3次元の空間ID（ZFXYタイル）を生成する例です。</p>
-<ul>
-<li><p>入力：523723_luse_6668.gml</p>
-</li>
-<li><p>出力：523723_luse_6668_zl20.csv</p>
-</li>
-<li><p>空間IDを生成する標高値の範囲：-10mから100m</p>
-<pre><code>  $ python citygml2id.py udx/luse/523723_luse_6668.gml udx/luse/523723_luse_6668_zl20.csv --grid-type zfxy --extract --extrude -10.0 100.0
-</code></pre>
-</li>
-</ul>
 <h2 id="ビューア部">ビューア部</h2>
 <p>※ 本ドキュメントでは開発サーバを用いた手順に限定します。運用環境では Apache や Nginx 等の Web サーバと mod_wsgi や uwsgi 等の WSGI 準拠ミドルウェアを組み合わせてデプロイすることを推奨いたします。</p>
 <ol>
@@ -244,9 +240,18 @@
 </li>
 <li><p>Webブラウザでビューアのトップページを開きます。URLは以下の通りです。</p>
 <p><a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a></p>
-<p>TODO: スクリーンショット</p>
+<p><img src="../resources/viewer01.png" alt=""></p>
 </li>
-<li><p>TODO: データアップロード</p>
+<li><p>データアップロード</p>
+<p>3D都市モデル、空間IDの順にアップロードします。</p>
+<p><img src="../resources/viewer02.png" alt=""></p>
+</li>
+<li><p>データ確認</p>
+<p>チェックボックスで3D都市モデルや空間IDの表示を切り替えることができます。</p>
+<p><img src="../resources/viewer03.png" alt=""></p>
+<p>3D都市モデルや空間ID（ボクセル）をクリックすると属性情報が表示されます。</p>
+<p><img src="../resources/viewer04.png" alt=""></p>
+<p>※ 3D都市モデル、空間IDの順にアップロードした場合、空間IDのメタデータに3D都市モデルの属性情報が付与されます。</p>
 </li>
 </ol>
 </article>
@@ -274,7 +279,7 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-      TODO: 全体タイトル
+      PLATEAUのための空間ID生成ツール
       
           </div>
         </div>
