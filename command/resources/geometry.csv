@@ -1,3 +1,12 @@
+Bridge,lod3Solid//surfaceMember,3
+Bridge,lod2Solid//surfaceMember,3
+Bridge,lod1Solid//surfaceMember,3
+Bridge,consistsOfBridgePart//lod3Solid//surfaceMember,3
+Bridge,consistsOfBridgePart//lod2Solid//surfaceMember,3
+Bridge,outerBridgeInstallation//lod3Geometry//surfaceMember,3
+Bridge,outerBridgeInstallation//lod2Geometry//surfaceMember,3
+Bridge,outerBridgeConstruction//lod3Geometry//surfaceMember,3
+Bridge,outerBridgeConstruction//lod2Geometry//surfaceMember,3
 Building,lod3Solid//surfaceMember,3
 Building,lod2Solid//surfaceMember,3
 Building,lod1Solid//surfaceMember,3
@@ -119,7 +128,5 @@ DistrictFacility,lod1MultiSurface//surfaceMember,2
 RuralDistrictFacility,lod1MultiSurface//surfaceMember,2
 RoadsideDistrictFacility,lod1MultiSurface//surfaceMember,2
 ZonalDisasterPreventionFacility,lod1MultiSurface//surfaceMember,2
-ThreeDimensionalExtent,lod1MultiSurface//surfaceMember,2
-Boundary,lod1MultiCurve//curveMember,2
 SedimentDisasterProneArea,lod1MultiSurface//surfaceMember,2
 ReliefFeature,reliefComponent//trianglePatches,3

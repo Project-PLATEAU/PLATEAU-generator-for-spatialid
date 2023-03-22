@@ -13,10 +13,11 @@ const attribute_def_3d = [
     {name: '名称', title: '名称'},
     {name: 'attributes/bldg:class', title: 'bldg:class'},
     {name: 'attributes/bldg:usage/0', title: 'bldg:usage'},
+    {name: 'attributes/brid:function/0', title: 'brid:function'},
     {name: 'attributes/frn:function/0', title: 'frn:function'},
     {name: 'attributes/tran:function/0', title: 'tran:function'},
     {name: 'attributes/veg:class', title: 'veg:class'},
-    {name: 'attributes/wtr:function', title: 'wtr:function'},
+    {name: 'attributes/wtr:function', title: 'wtr:function'}
 ];
 
 function getAttributes2D(feature) {
