@@ -103,6 +103,16 @@
 
     	$ pip install -r requirements.txt
 
+4. 座標変換に必要なファイルをダウンロードします。
+
+    Windows	の場合
+
+        > pyproj sync --file us_nga_egm96_15.tif
+
+	macOS / Linux の場合
+
+    	$ pyproj sync --file us_nga_egm96_15.tif
+
 ### 使い方
 
 #### 空間IDを付与した3D都市モデル生成ツール
