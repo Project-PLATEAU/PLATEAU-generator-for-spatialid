@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:uro="https://www.geospatial.jp/iur/uro/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:luse="http://www.opengis.net/citygml/landuse/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/2.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0" xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0" xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0" xmlns:dem="http://www.opengis.net/citygml/relief/2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" targetNamespace="https://www.geospatial.jp/iur/uro/2.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+	<xs:annotation>
+		<xs:documentation>XML Schema for Urban Object module</xs:documentation>
+		<xs:documentation>Updated on 2022/07/19</xs:documentation>
+		<xs:documentation>空間ID属性の検討 ADE案</xs:documentation>
+		<xs:documentation>Updated on 2023/02/15 spatialIDに変更</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="http://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/transportation/2.0" schemaLocation="http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/building/2.0" schemaLocation="http://schemas.opengis.net/citygml/building/2.0/building.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/landuse/2.0" schemaLocation="http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/cityobjectgroup/2.0" schemaLocation="http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/cityfurniture/2.0" schemaLocation="http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/vegetation/2.0" schemaLocation="http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd"/>
+	<xs:import namespace="http://www.opengis.net/citygml/waterbody/2.0" schemaLocation="http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd"/>
+	<!-- =================== relief.xsdをimport(xmlns:demも合わせて宣言) ================== -->
+	<xs:import namespace="http://www.opengis.net/citygml/relief/2.0" schemaLocation="http://schemas.opengis.net/citygml/relief/2.0/relief.xsd"/>
+	<!-- =================== Extended attribute for Building ================== -->
+	<xs:element name="buildingIDAttribute" type="uro:BuildingIDAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<xs:element name="buildingDetailAttribute" type="uro:BuildingDetailAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<xs:element name="largeCustomerFacilityAttribute" type="uro:LargeCustomerFacilityAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<xs:element name="buildingDisasterRiskAttribute" type="uro:BuildingDisasterRiskAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<xs:element name="keyValuePairAttribute" type="uro:KeyValuePairAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<xs:element name="buildingDataQualityAttribute" type="uro:BuildingDataQualityAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<!-- =================== 空間ID拡張属性 建築物 ADE案 ================== -->
+	<xs:element name="buildingSpatialIDAttribute" type="uro:BuildingSpatialIDAttributePropertyType" substitutionGroup="bldg:_GenericApplicationPropertyOfAbstractBuilding"/>
+	<!-- ====================================================================== -->
+	<xs:element name="BuildingAttribute" type="uro:BuildingAttributeType" abstract="true"/>
+	<xs:complexType name="BuildingAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="BuildingAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for Building ================== -->
+	<xs:element name="BuildingIDAttribute" type="uro:BuildingIDAttributeType" substitutionGroup="uro:BuildingAttribute">
+		<xs:annotation>
+			<xs:documentation>建物識別属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<xs:element name="buildingID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>3D都市モデルでは必須</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="branchID" type="xs:integer" minOccurs="0"/>
+					<xs:element name="partID" type="xs:integer" minOccurs="0"/>
+					<xs:element name="prefecture" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="city" type="gml:CodeType">
+						<xs:annotation>
+							<xs:documentation>3D都市モデルでは必須</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BuildingIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="BuildingDetailAttribute" type="uro:BuildingDetailAttributeType" substitutionGroup="uro:BuildingAttribute">
+		<xs:annotation>
+			<xs:documentation>建物利用現況</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingDetailAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<xs:element name="serialNumberOfBuildingCertification" type="xs:string" minOccurs="0"/>
+					<xs:element name="siteArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="totalFloorArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="buildingFootprintArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="buildingRoofEdgeArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="developmentArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="buildingStructureType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="buildingStructureOrgType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="fireproofStructureType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="implementingBody" type="xs:string" minOccurs="0"/>
+					<xs:element name="urbanPlanType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="areaClassificationType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="districtsAndZonesType" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="landUseType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="reference" type="xs:string" minOccurs="0"/>
+					<xs:element name="majorUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="majorUsage2" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="orgUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="orgUsage2" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="detailedUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="detailedUsage2" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="detailedUsage3" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="groundFloorUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="secondFloorUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="thirdFloorUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="basementUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="basementFirstUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="basementSecondUsage" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="vacancy" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="buildingCoverageRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="floorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="specifiedBuildingCoverageRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="specifiedFloorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="standardFloorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="buildingHeight" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="eaveHeight" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="note" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyYear" type="xs:gYear"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BuildingDetailAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingDetailAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LargeCustomerFacilityAttribute" type="uro:LargeCustomerFacilityAttributeType" substitutionGroup="uro:BuildingAttribute">
+		<xs:annotation>
+			<xs:documentation>集客施設立地現況</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="LargeCustomerFacilityAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="name" type="xs:string" minOccurs="0"/>
+					<xs:element name="capacity" type="xs:integer" minOccurs="0"/>
+					<xs:element name="owner" type="xs:string" minOccurs="0"/>
+					<xs:element name="totalFloorArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="totalStoreFloorArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="inauguralDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="keyTenants" type="xs:string" minOccurs="0"/>
+					<xs:element name="availability" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="urbanPlanType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="areaClassificationType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="districtsAndZonesType" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="landUseType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="reference" type="xs:string" minOccurs="0"/>
+					<xs:element name="note" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyYear" type="xs:gYear"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LargeCustomerFacilityAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:LargeCustomerFacilityAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Building Disaster Risk Attribute ==================== -->
+	<xs:element name="BuildingDisasterRiskAttribute" type="uro:BuildingDisasterRiskAttributeType" abstract="true" substitutionGroup="uro:BuildingAttribute">
+		<xs:annotation>
+			<xs:documentation>災害リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingDisasterRiskAttributeType" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<xs:element name="description" type="gml:CodeType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BuildingDisasterRiskAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingDisasterRiskAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="BuildingFloodingRiskAttribute" type="uro:BuildingFloodingRiskAttributeType" abstract="true" substitutionGroup="uro:BuildingDisasterRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>浸水想定属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingFloodingRiskAttributeType" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingDisasterRiskAttributeType">
+				<xs:sequence>
+					<xs:element name="rank" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="rankOrg" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="depth" type="gml:LengthType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BuildingRiverFloodingRiskAttribute" type="uro:BuildingRiverFloodingRiskAttributeType" substitutionGroup="uro:BuildingFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>建築物洪水浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingRiverFloodingRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingFloodingRiskAttributeType">
+				<xs:sequence>
+					<xs:element name="adminType" type="gml:CodeType"/>
+					<xs:element name="scale" type="gml:CodeType"/>
+					<xs:element name="duration" type="gml:MeasureType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BuildingTsunamiRiskAttribute" type="uro:BuildingTsunamiRiskAttributeType" substitutionGroup="uro:BuildingFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>建築物津波浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingTsunamiRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BuildingInlandFloodingRiskAttribute" type="uro:BuildingInlandFloodingRiskAttributeType" substitutionGroup="uro:BuildingFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>建築物内水浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingInlandFloodingRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BuildingHighTideRiskAttribute" type="uro:BuildingHighTideRiskAttributeType" substitutionGroup="uro:BuildingFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>建築物高潮浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingHighTideRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="BuildingLandSlideRiskAttribute" type="uro:BuildingLandSlideRiskAttributeType" substitutionGroup="uro:BuildingDisasterRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>建築物土砂災害リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BuildingLandSlideRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingDisasterRiskAttributeType">
+				<xs:sequence>
+					<xs:element name="areaType" type="gml:CodeType"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ==================== Attribute type for further extension ==================== -->
+	<xs:element name="KeyValuePairAttribute" type="uro:KeyValuePairAttributeType">
+		<xs:annotation>
+			<xs:documentation>拡張属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KeyValuePairAttributeType">
+		<xs:sequence>
+			<xs:element name="key" type="gml:CodeType"/>
+			<xs:choice>
+				<xs:element name="codeValue" type="gml:CodeType"/>
+				<xs:element name="stringValue" type="xs:string"/>
+				<xs:element name="intValue" type="xs:integer"/>
+				<xs:element name="doubleValue" type="xs:double"/>
+				<xs:element name="measuredValue" type="gml:MeasureType"/>
+				<xs:element name="dateValue" type="xs:date"/>
+				<xs:element name="uriValue" type="xs:anyURI"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeyValuePairAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:KeyValuePairAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Data Quality Attribute ==================== -->
+	<xs:element name="BuildingDataQualityAttribute" type="uro:BuildingDataQualityAttributeType" substitutionGroup="uro:BuildingAttribute"/>
+	<xs:complexType name="BuildingDataQualityAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<xs:element name="srcScale" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="geometrySrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="thematicSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="appearanceSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lod1HeightType" type="gml:CodeType">
+						<xs:annotation>
+							<xs:documentation>3D都市モデルでは必須</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lodType" type="uro:BuildingLODType" minOccurs="0" maxOccurs="2"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BuildingDataQualityAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingDataQualityAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 建築物 ADE案 ==================== -->
+	<xs:element name="BuildingSpatialIDAttribute" type="uro:BuildingSpatialIDAttributeType" substitutionGroup="uro:BuildingAttribute"/>
+	<xs:complexType name="BuildingSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:BuildingAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BuildingSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:BuildingSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Extended attribute for Land Use =============== -->
+	<xs:element name="landUseDetailAttribute" type="uro:LandUseDetailAttributePropertyType" substitutionGroup="luse:_GenericApplicationPropertyOfLandUse"/>
+	<!-- =================== 空間ID拡張属性 土地利用 ADE案 ================== -->
+	<xs:element name="landUseSpatialIDAttribute" type="uro:LandUseSpatialIDAttributePropertyType" substitutionGroup="luse:_GenericApplicationPropertyOfLandUse"/>
+	<!-- ====================================================================== -->
+	<xs:element name="LandUseAttribute" type="uro:LandUseAttributeType" abstract="true"/>
+	<xs:complexType name="LandUseAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="LandUseAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:LandUseAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LandUseDetailAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:LandUseDetailAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for LandUse ================== -->
+	<xs:element name="LandUseDetailAttribute" type="uro:LandUseDetailAttributeType" substitutionGroup="uro:LandUseAttribute">
+		<xs:annotation>
+			<xs:documentation>土地利用現況</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="LandUseDetailAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:LandUseAttributeType">
+				<xs:sequence>
+					<xs:element name="orgLandUse" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="nominalArea" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="ownerType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="owner" type="xs:string" minOccurs="0"/>
+					<xs:element name="areaInSquareMeter" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="areaInHa" type="gml:MeasureType" minOccurs="0"/>
+					<xs:element name="buildingCoverageRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="floorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="specifiedBuildingCoverageRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="specifiedFloorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="standardFloorAreaRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="urbanPlanType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="areaClassificationType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="districtsAndZonesType" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="prefecture" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="city" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="reference" type="xs:string" minOccurs="0"/>
+					<xs:element name="note" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyYear" type="xs:gYear" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 土地利用 ADE案 ==================== -->
+	<xs:element name="LandUseSpatialIDAttribute" type="uro:LandUseSpatialIDAttributeType" substitutionGroup="uro:LandUseAttribute"/>
+	<xs:complexType name="LandUseSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:LandUseAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LandUseSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:LandUseSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ===================== Extended attribute for Road  ================= -->
+	<xs:element name="trafficVolumeAttribute" type="uro:TrafficVolumeAttributePropertyType" substitutionGroup="tran:_GenericApplicationPropertyOfRoad"/>
+	<xs:element name="roadStructureAttribute" type="uro:RoadStructureAttributePropertyType" substitutionGroup="tran:_GenericApplicationPropertyOfRoad"/>
+	<xs:element name="roadDataQualityAttribute" type="uro:RoadDataQualityAttributePropertyType" substitutionGroup="tran:_GenericApplicationPropertyOfRoad"/>
+	<xs:element name="trafficAreaStructureAttribute" type="uro:TrafficAreaStructureAttributePropertyType" substitutionGroup="tran:_GenericApplicationPropertyOfTrafficArea"/>
+	<!-- =================== 空間ID拡張属性 道路 ADE案 ================== -->
+	<xs:element name="roadSpatialIDAttribute" type="uro:RoadSpatialIDAttributePropertyType" substitutionGroup="tran:_GenericApplicationPropertyOfRoad"/>
+	<!-- ===================================================================== -->
+	<xs:element name="RoadAttribute" type="uro:RoadAttributeType" abstract="true"/>
+	<xs:complexType name="RoadAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="RoadAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:RoadAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for Road ================== -->
+	<xs:element name="TrafficVolumeAttribute" type="uro:TrafficVolumeAttributeType" substitutionGroup="uro:RoadAttribute">
+		<xs:annotation>
+			<xs:documentation>交通量属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TrafficVolumeAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:RoadAttributeType">
+				<xs:sequence>
+					<xs:element name="sectionID" type="xs:string" minOccurs="0"/>
+					<xs:element name="weekday12hourTrafficVolume" type="xs:integer" minOccurs="0"/>
+					<xs:element name="weekday24hourTrafficVolume" type="xs:integer" minOccurs="0"/>
+					<xs:element name="largeVehicleRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="congestionRate" type="xs:double" minOccurs="0"/>
+					<xs:element name="averageTravelSpeedInCongestion" type="xs:double" minOccurs="0"/>
+					<xs:element name="averageInboundTravelSpeedInCongestion" type="xs:double" minOccurs="0"/>
+					<xs:element name="averageOutboundTravelSpeedInCongestion" type="xs:double" minOccurs="0"/>
+					<xs:element name="observationPointName" type="xs:string" minOccurs="0"/>
+					<xs:element name="reference" type="xs:string" minOccurs="0"/>
+					<xs:element name="surveyYear" type="xs:gYear" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TrafficVolumeAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:TrafficVolumeAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RoadStructureAttribute" type="uro:RoadStructureAttributeType" substitutionGroup="uro:RoadAttribute">
+		<xs:annotation>
+			<xs:documentation>道路構造属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RoadStructureAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:RoadAttributeType">
+				<xs:sequence>
+					<xs:element name="widthType" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="width" type="gml:LengthType" minOccurs="0"/>
+					<xs:element name="numberOfLanes" type="xs:integer" minOccurs="0"/>
+					<xs:element name="sectionType" type="gml:CodeType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RoadStructureAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:RoadStructureAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Road Data Quality Attribute ==================== -->
+	<xs:element name="RoadDataQualityAttribute" type="uro:RoadDataQualityAttributeType" substitutionGroup="uro:RoadAttribute">
+		<xs:annotation>
+			<xs:documentation>道路データ品質属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RoadDataQualityAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:RoadAttributeType">
+				<xs:sequence>
+					<xs:element name="srcScale" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="geometrySrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="thematicSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="appearanceSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lodType" type="uro:RoadLODType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>2022-05-17 データ型修正</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RoadDataQualityAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:RoadDataQualityAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ===================================================================== -->
+	<xs:element name="TrafficAreaAttribute" type="uro:TrafficAreaAttributeType" abstract="true"/>
+	<xs:complexType name="TrafficAreaAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="TrafficAreaAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:TrafficAreaAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TrafficAreaStructureAttribute" type="uro:TrafficAreaStructureAttributeType" substitutionGroup="uro:TrafficAreaAttribute">
+		<xs:annotation>
+			<xs:documentation>交通領域構造属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TrafficAreaStructureAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:TrafficAreaAttributeType">
+				<xs:sequence>
+					<xs:element name="numberOfLanes" type="xs:integer" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TrafficAreaStructureAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:TrafficAreaStructureAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 道路 ADE案 ==================== -->
+	<xs:element name="RoadSpatialIDAttribute" type="uro:RoadSpatialIDAttributeType" substitutionGroup="uro:RoadAttribute"/>
+	<xs:complexType name="RoadSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:RoadAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RoadSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:RoadSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== CityFurniture Attribute ==================== -->
+	<xs:element name="cityFurnitureDetailAttribute" type="uro:CityFurnitureDetailAttributePropertyType" substitutionGroup="frn:_GenericApplicationPropertyOfCityFurniture"/>
+	<xs:element name="cityFurnitureDataQualityAttribute" type="uro:CityFurnitureDataQualityAttributePropertyType" substitutionGroup="frn:_GenericApplicationPropertyOfCityFurniture"/>
+	<!-- =================== 空間ID拡張属性 都市設備 ADE案 ================== -->
+	<xs:element name="cityFurnitureSpatialIDAttribute" type="uro:CityFurnitureSpatialIDAttributePropertyType" substitutionGroup="frn:_GenericApplicationPropertyOfCityFurniture"/>
+	<!-- ===================================================================== -->
+	<xs:element name="CityFurnitureAttribute" type="uro:CityFurnitureAttributeType" abstract="true"/>
+	<xs:complexType name="CityFurnitureAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="CityFurnitureAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:CityFurnitureAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for CityFurniture ================== -->
+	<xs:element name="CityFurnitureDetailAttribute" type="uro:CityFurnitureDetailAttributeType" substitutionGroup="uro:CityFurnitureAttribute">
+		<xs:annotation>
+			<xs:documentation>都市設備詳細属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CityFurnitureDetailAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:CityFurnitureAttributeType">
+				<xs:sequence>
+					<xs:element name="facilityType" type="xs:string" minOccurs="0"/>
+					<xs:element name="description" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CityFurnitureDetailAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:CityFurnitureDetailAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Data Quality Attribute ==================== -->
+	<xs:element name="CityFurnitureDataQualityAttribute" type="uro:CityFurnitureDataQualityAttributeType" substitutionGroup="uro:CityFurnitureAttribute">
+		<xs:annotation>
+			<xs:documentation>都市設備データ品質属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="CityFurnitureDataQualityAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:CityFurnitureAttributeType">
+				<xs:sequence>
+					<xs:element name="srcScale" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="geometrySrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="thematicSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="appearanceSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="lodType" type="uro:CityFurnitureLODType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CityFurnitureDataQualityAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:CityFurnitureDataQualityAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 都市設備 ADE案 ==================== -->
+	<xs:element name="CityFurnitureSpatialIDAttribute" type="uro:CityFurnitureSpatialIDAttributeType" substitutionGroup="uro:CityFurnitureAttribute"/>
+	<xs:complexType name="CityFurnitureSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:CityFurnitureAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CityFurnitureSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:CityFurnitureSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== Vegetation Attribute ==================== -->
+	<xs:element name="vegetationDataQualityAttribute" type="uro:VegetationDataQualityAttributePropertyType" substitutionGroup="veg:_GenericApplicationPropertyOfVegetationObject"/>
+	<!-- =================== 空間ID拡張属性 植生 ADE案 ================== -->
+	<xs:element name="vegetationSpatialIDAttribute" type="uro:VegetationSpatialIDAttributePropertyType" substitutionGroup="veg:_GenericApplicationPropertyOfVegetationObject"/>
+	<!-- ============================================================== -->
+	<xs:element name="VegetationAttribute" type="uro:VegetationAttributeType" abstract="true"/>
+	<xs:complexType name="VegetationAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="VegetationAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:VegetationAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for CityFurniture ================== -->
+	<!-- ==================== Data Quality Attribute ==================== -->
+	<xs:element name="VegetationDataQualityAttribute" type="uro:VegetationDataQualityAttributeType" substitutionGroup="uro:VegetationAttribute">
+		<xs:annotation>
+			<xs:documentation>植生データ品質属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VegetationDataQualityAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:VegetationAttributeType">
+				<xs:sequence>
+					<xs:element name="srcScale" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="geometrySrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="thematicSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="appearanceSrcDesc" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VegetationDataQualityAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:VegetationDataQualityAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 植生 ADE案 ==================== -->
+	<xs:element name="VegetationSpatialIDAttribute" type="uro:VegetationSpatialIDAttributeType" substitutionGroup="uro:VegetationAttribute"/>
+	<xs:complexType name="VegetationSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:VegetationAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VegetationSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:VegetationSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== WaterBody Attribute ==================== -->
+	<xs:element name="floodingRiskAttribute" type="uro:WaterBodyFloodingRiskAttributePropertyType" substitutionGroup="wtr:_GenericApplicationPropertyOfWaterBody"/>
+	<!-- =================== 空間ID拡張属性 水部 ADE案 ================== -->
+	<xs:element name="waterBodySpatialIDAttribute" type="uro:WaterBodySpatialIDAttributePropertyType" substitutionGroup="wtr:_GenericApplicationPropertyOfWaterBody"/>
+	<!-- ============================================================= -->
+	<xs:element name="WaterBodyAttribute" type="uro:WaterBodyAttributeType" abstract="true"/>
+	<xs:complexType name="WaterBodyAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="WaterBodyAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:WaterBodyAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WaterBodyFloodingRiskAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:WaterBodyFloodingRiskAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== Subtypes of Extended attribute for WaterBody ================== -->
+	<xs:element name="WaterBodyFloodingRiskAttribute" type="uro:WaterBodyFloodingRiskAttributeType" abstract="true" substitutionGroup="uro:WaterBodyAttribute">
+		<xs:annotation>
+			<xs:documentation>水部浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterBodyFloodingRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyAttributeType">
+				<xs:sequence>
+					<xs:element name="description" type="gml:CodeType"/>
+					<xs:element name="rank" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="rankOrg" type="gml:CodeType" minOccurs="0"/>
+					<xs:element name="depth" type="gml:LengthType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="WaterBodyRiverFloodingRiskAttribute" type="uro:WaterBodyRiverFloodingRiskAttributeType" substitutionGroup="uro:WaterBodyFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>水部洪水浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterBodyRiverFloodingRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyFloodingRiskAttributeType">
+				<xs:sequence>
+					<xs:element name="adminType" type="gml:CodeType"/>
+					<xs:element name="scale" type="gml:CodeType"/>
+					<xs:element name="duration" type="gml:MeasureType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="WaterBodyTsunamiRiskAttribute" type="uro:WaterBodyTsunamiRiskAttributeType" substitutionGroup="uro:WaterBodyFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>水部津波浸水想定リスク属性</xs:documentation>
+			<xs:documentation>2022-04-28 修正</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterBodyTsunamiRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="WaterBodyHighTideRiskAttribute" type="uro:WaterBodyHighTideRiskAttributeType" substitutionGroup="uro:WaterBodyFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>水部高潮浸水想定リスク属性</xs:documentation>
+			<xs:documentation>2022-04-28 修正</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterBodyHighTideRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="WaterBodyInlandFloodingRiskAttribute" type="uro:WaterBodyInlandFloodingRiskAttributeType" substitutionGroup="uro:WaterBodyFloodingRiskAttribute">
+		<xs:annotation>
+			<xs:documentation>水部内水浸水想定リスク属性</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WaterBodyInlandFloodingRiskAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyFloodingRiskAttributeType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 水部 ADE案 ==================== -->
+	<xs:element name="WaterBodySpatialIDAttribute" type="uro:WaterBodySpatialIDAttributeType" substitutionGroup="uro:WaterBodyAttribute"/>
+	<xs:complexType name="WaterBodySpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:WaterBodyAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WaterBodySpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:WaterBodySpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================              Enumeration             ==================== -->
+	<xs:simpleType name="BuildingLODType">
+		<xs:annotation>
+			<xs:documentation>建築物詳細LOD</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2.0"/>
+			<xs:enumeration value="2.1"/>
+			<xs:enumeration value="2.2"/>
+			<xs:enumeration value="3.0"/>
+			<xs:enumeration value="3.1"/>
+			<xs:enumeration value="3.2"/>
+			<xs:enumeration value="3.3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoadLODType">
+		<xs:annotation>
+			<xs:documentation>道路詳細LOD</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3.0"/>
+			<xs:enumeration value="3.1"/>
+			<xs:enumeration value="3.2"/>
+			<xs:enumeration value="3.3"/>
+			<xs:enumeration value="3.4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CityFurnitureLODType">
+		<xs:annotation>
+			<xs:documentation>都市設備詳細LOD</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3.0"/>
+			<xs:enumeration value="3.1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- =================== Extended attribute for CityObjectGroup ================= -->
+	<xs:element name="fiscalYearOfPublication" type="xs:gYear" substitutionGroup="grp:_GenericApplicationPropertyOfCityObjectGroup"/>
+	<xs:element name="language" type="gml:CodeType" substitutionGroup="grp:_GenericApplicationPropertyOfCityObjectGroup"/>
+	<!-- ==================== ReliefFeature Attribute ==================== -->
+	<!-- =================== 空間ID拡張属性 TINRelief ADE案 ================== -->
+	<xs:element name="reliefFeatureSpatialIDAttribute" type="uro:ReliefFeatureSpatialIDAttributePropertyType" substitutionGroup="dem:_GenericApplicationPropertyOfReliefFeature"/>
+	<!-- ===================================================================== -->
+	<xs:element name="ReliefFeatureAttribute" type="uro:ReliefFeatureAttributeType" abstract="true"/>
+	<xs:complexType name="ReliefFeatureAttributeType" abstract="true">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="ReliefFeatureAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:ReliefFeatureAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ==================== 空間ID拡張属性 TINRelief ADE案 ==================== -->
+	<xs:element name="ReliefFeatureSpatialIDAttribute" type="uro:ReliefFeatureSpatialIDAttributeType" substitutionGroup="uro:ReliefFeatureAttribute"/>
+	<xs:complexType name="ReliefFeatureSpatialIDAttributeType">
+		<xs:complexContent>
+			<xs:extension base="uro:ReliefFeatureAttributeType">
+				<xs:sequence>
+					<!--最大ズームレベル-->
+					<xs:element name="maxZoomLevel" type="xs:integer"/>
+					<!--最適化処理実施の有無-->
+					<xs:element name="merge" type="xs:boolean" default="false"/>
+					<!--空間ID ZFXY:{z}/{f}/{x}/{y} XYZ:{z}/{x}/{y}-->
+					<xs:element name="spatialID" type="xs:string" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ReliefFeatureSpatialIDAttributePropertyType">
+		<xs:sequence>
+			<xs:element ref="uro:ReliefFeatureSpatialIDAttribute"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- =================== 空間ID外部ファイル参照 ADE案 ================= -->
+	<xs:element name="externalReferenceOfSpatialID" type="uro:ExternalReferenceOfSpatialID" substitutionGroup="core:_GenericApplicationPropertyOfCityModel"/>
+	<xs:complexType name="ExternalReferenceOfSpatialID">
+		<xs:sequence>
+			<xs:element name="fileLocation" type="xs:anyURI"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
