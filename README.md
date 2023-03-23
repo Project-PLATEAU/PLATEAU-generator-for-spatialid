@@ -60,7 +60,7 @@
     Windows	の場合
 
         > pip install -r requirements.txt
-
+//requirements.txtのパスを指定しないとインストールできないのでは？
 	macOS / Linux の場合
 
     	$ pip install -r requirements.txt
