@@ -37,7 +37,18 @@
       "output": {
         ".html": {
           "relative_path": "manual/citygml.html",
-          "hash": "plled+NX2FrDqNO7PYE7FJbECchvhPR8RhzSeLGC9vY="
+          "hash": "ZyxC4y7boNCwOew6ejC3A/gTCfo6xdUdHb1qtgB/e9o="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/program.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/program.html",
+          "hash": "hcobk43ghJ9YtVo0QOrBwGQbJlxDh5+QhBN2/MriirI="
         }
       },
       "version": ""
@@ -59,7 +70,7 @@
       "output": {
         ".html": {
           "relative_path": "manual/spatialid.html",
-          "hash": "E2sEgSGoD64Yj2KlTqSOJb9pExTuxvb/IkWK5BlOJiM="
+          "hash": "B5QzDR+SfkTQXfZ8+6Oc1ZCf4GpcNGWsRo47C2v6r+U="
         }
       },
       "version": ""
@@ -70,7 +81,47 @@
       "output": {
         ".html": {
           "relative_path": "manual/toc.html",
-          "hash": "IVfwAk2NAp6gGlw75YG2w1dfjLqIcLaPkeAydb18nDY="
+          "hash": "FeBf8Dw3PDCTVVWCpdFgfivcaEy9My2Sb9FfEcnVMPI="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/data_architecture1.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/data_architecture1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/data_architecture2.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/data_architecture2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/system_architecture1.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/system_architecture1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/system_architecture2.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/system_architecture2.png"
         }
       },
       "version": ""
@@ -111,6 +162,16 @@
       "output": {
         "resource": {
           "relative_path": "resources/viewer04.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "resources/viewer_architecture.png",
+      "output": {
+        "resource": {
+          "relative_path": "resources/viewer_architecture.png"
         }
       },
       "version": ""

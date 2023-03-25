@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>プログラム設計 | PLATEAUのための空間ID生成ツール </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="プログラム設計 | PLATEAUのための空間ID生成ツール ">
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="プログラム設計">プログラム設計</h1>
+
+<h2 id="空間idを付与した3d都市モデル生成ツール">空間IDを付与した3D都市モデル生成ツール</h2>
+<h3 id="プログラム構成">プログラム構成</h3>
+<table>
+<thead>
+    <tr>
+        <td colspan="3">プログラム構成</td>
+        <td>説明</td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>1</td>
+        <td rowspan="2">メインプログラム</td>
+        <td>citygml2id.py</td>
+        <td>CityGML から gml_id と空間IDのペアを CSV 出力するツール</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>id2citygml.py</td>
+        <td>空間IDのCSV ファイルからCityGMLファイルを更新（空間IDの拡張属性作成）するツール</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td rowspan="5">サブプログラム</td>
+        <td>grids.py</td>
+        <td>ボクセルグリッドを構築するためのプログラム</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>inputs.py</td>
+        <td>ファイルを入力するためのプログラム</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>outputs.py</td>
+        <td>ファイルを出力するためのプログラム</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>prepare.py</td>
+        <td>CityGMLファイルを前処理（解析）するためのプログラム</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>constants.py</td>
+        <td>定数定義</td>
+    </tr>
+</tbody>
+</table>
+<h3 id="アーキテクチャ">アーキテクチャ</h3>
+<h4 id="システムアーキテクチャ">システムアーキテクチャ</h4>
+<p><img src="../resources/system_architecture1.png" alt=""></p>
+<h4 id="データアーキテクチャ">データアーキテクチャ</h4>
+<p><img src="../resources/data_architecture1.png" alt=""></p>
+<h2 id="空間idのメタデータ生成ツール">空間IDのメタデータ生成ツール</h2>
+<p>本ツールは空間IDが付与されたCityGMLファイルを入力とし、地物IDと空間IDのペアリストファイル（CSV形式）を出力するコマンド部と、地物IDと空間IDのペアリストファイルを可視化するためのビューア部に分かれている。コマンド部は、空間IDを付与した3D都市モデル生成ツールと同じであるため、ビューア部について説明する。</p>
+<h3 id="ソフトウェア構成ビューア部">ソフトウェア構成（ビューア部）</h3>
+<p><img src="../resources/viewer_architecture.png" alt=""></p>
+<h3 id="プログラム構成ビューア部">プログラム構成（ビューア部）</h3>
+<table>
+<thead>
+    <tr>
+        <td colspan="3">プログラム構成（ビューア部）</td>
+        <td>説明</td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>1</td>
+        <td rowspan="2">サーバ</td>
+        <td>server.py</td>
+        <td>空間IDからボクセル形状の生成等を行うプログラム</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>cleanup.py</td>
+        <td>一時ディレクトリの古いファイルを削除するプログラム</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td rowspan="2">ビューアクライアント</td>
+        <td>index.js</td>
+        <td>サーバへのファイルアップロードとサーバから配信されるデータをビューアに表示するプログラム</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>attribute.js</td>
+        <td>空間ID（ボクセル）のメタデータ（3D Tiles/ Mapbox Vector Tileに記録された属性）を取得するプログラム</td>
+    </tr>
+</tbody>
+</table>
+<h4 id="システムアーキテクチャ-1">システムアーキテクチャ</h4>
+<p><img src="../resources/system_architecture2.png" alt=""></p>
+<h4 id="データアーキテクチャ-1">データアーキテクチャ</h4>
+<p><img src="../resources/data_architecture2.png" alt=""></p>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      PLATEAUのための空間ID生成ツール
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
