@@ -188,6 +188,55 @@
     --spatialid | 空間IDの付与方法　| `embedding`: CityGMLファイルに空間IDを直接付与 <br/> `reference`: 地物ID-空間IDペアリスト（CSVファイル）への相対パスを記録⇒CityGMLファイルへの空間IDの直接付与は行わず、外部ファイル参照のみで空間IDと紐付けする場合に使用 <br/> `both`: CityGMLファイルへの空間ID直接付与とCSVファイルへの相対パス記録の両者を実行 | `both` |
     -h | 使い方を表示 | | |
 
+5. 使用例1: ファイルを指定し、citygml2id.pyを実行する
+
+        $ python citygml2id.py ../examples/citygml/udx/bldg/building_sample.gml ../examples/citygml/udx/bldg/spatialid/building_sample_zl23_merged.csv --grid-type zfxy --grid-level 23 --interpolate --merge
+
+    - 入力：building_sample.gml【3D都市モデル(CityGML)】
+    - 出力：building_sample_zl23_merged.csv
+    - グリッドタイプ：ZFXY
+    - 基準（最大）ズームレベル：23
+    - 空洞部の空間ID生成：実施
+    - ズームレベル最適化：実施
+
+    ※ [examplesディレクトリ](examples)のサンプルデータで動作を確認できます。
+
+6. 使用例2: フォルダに対し、citygml2id.pyを実行（一括処理）する
+
+        $ python citygml2id.py ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg --grid-type zfxy --grid-level 23 --interpolate --merge
+        $ python citygml2id.py ../examples/citygml/udx/urf ../examples/citygml/udx/urf --grid-type zfxy --grid-level 20
+
+    - 入力：bldgフォルダ（建築物）とurfフォルダ（都市計画決定情報）
+    - 出力：gmlファイルが存在するフォルダ直下にspatialidフォルダを生成しCSVファイルを格納
+    - グリッドタイプ：ZFXY
+    - 基準（最大）ズームレベル：bldgフォルダに対しては23、urfフォルダに対しては20
+    - 空洞部の空間ID生成：Solid形状の建築物にのみ実施
+
+    ※ [examplesディレクトリ](examples)のサンプルデータで動作を確認できます。
+
+7. 使用例3: ファイルを指定し、id2citygml.pyを実行する
+
+        $ python id2citygml.py ../examples/citygml/udx/bldg/building_sample.gml ../examples/citygml/udx/bldg/spatialid/building_sample_zl23_merged.csv ../examples/citygml/udx/bldg/building_sample.gml --spatialid both
+
+    - 入力：building_sample.gml
+    - 地物IDと空間IDのペアリスト（CSV）：building_sample_zl23_merged.csv
+    - 出力：building_sample.gml（ファイルを更新）
+    - 空間IDの付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方
+
+    ※ [examplesディレクトリ](examples)のサンプルデータで動作を確認できます。事前に使用例1又は使用例2を実行しておいてください。
+
+8. 使用例4: フォルダに対し、id2citygml.pyを実行（一括処理）する
+
+        $ python id2citygml.py ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg --spatialid both
+        $ python id2citygml.py ../examples/citygml/udx/urf ../examples/citygml/udx/urf ../examples/citygml/udx/urf --spatialid both
+
+    - 入力：bldgフォルダ（建築物）とurfフォルダ（都市計画決定情報）
+    - 地物IDと空間IDのペアリスト（CSV）：bldgフォルダとurfフォルダ内にあるspatialidフォルダ
+    - 出力：bldgフォルダとurfフォルダ（フォルダ内のcitygmlファイルを更新）
+    - 空間ID付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方
+
+    ※ [examplesディレクトリ](examples)のサンプルデータで動作を確認できます。なお、使用例2を事前に実行しておいてください。
+
 #### 空間IDのメタデータ生成ツール
 
 ##### コマンド部
@@ -240,6 +289,16 @@
     --merge | 上位の空間IDに統合（最適化）する場合に指定。 | | |
     --debug | デバッグログ出力および一時ファイル保持を有効にする場合に指定。 | | |
     -h | 使い方を表示。 | | |
+
+4. 使用例5：2次元の空間ID（地理院タイル(XYZタイル)）が付与されたCityGMLファイルから空間IDを抽出し、3次元の空間ID（ZFXYタイル）を生成する
+
+        $python citygml2id.py ../examples/citygml/udx/urf/urf_yoto_sample.gml ../examples/citygml/udx/urf/spatialid/urf_yoto_sample_zl20_3D.csv --grid-type zfxy --extract --extrude -10.0 100.0
+
+    - 入力：urf_yoto_sample.gml
+    - 出力：urf_yoto_sample_zl20_3D.csv
+    - 空間IDを生成する標高値の範囲：-10mから100m
+
+    ※ [examplesディレクトリ](examples)のサンプルデータで動作を確認できます。事前に使用例2と使用例4を実行しておいてください。
 
 ##### ビューア部
 
@@ -298,6 +357,16 @@
     ![](resources/viewer04.png)
 
     ※ 3D都市モデル、空間IDの順にアップロードした場合、空間IDのメタデータに3D都市モデルの属性情報が付与されます。
+
+    ※ ビューアで表示する3D都市モデルは、FME Hubで公開されているFMEワークスペース[PLATEAU2可視化用データ変換](https://hub.safe.com/?page=1&page_size=10&order=relevance&query=plateau)によって変換されたCesium 3D Tiles データセット (3Dモデル) または Mapbox Vector Tile (MVT) データセット (2Dポリゴン)を使用します。JSON属性にgml:idが記録されていない場合は、このワークスペースを編集し出力してください。
+
+#### 使用例6：バッチファイルによる実行
+
+バッチファイルを用意し複数のコマンドを連続処理することができます。
+[examplesディレクトリ](examples)にサンプルデータ（建築物と用途地域）と、バッチファイルのサンプルを用意しています。
+ツールをセットアップしたcommandフォルダ直下で、Python仮想環境を有効化し、[../examples/example.bat](examples/example.bat)を実行してください。
+
+※ 使用例2、使用例4及び使用例5を連続して実行するバッチファイルです。
 
 ## ライセンス
 
