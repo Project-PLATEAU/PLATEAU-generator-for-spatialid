@@ -201,14 +201,15 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例：2次元の空間ID（地理院タイル(XYZタイル)）が付与されたCityGMLファイルから空間IDを抽出し、3次元の空間ID（ZFXYタイル）を生成する</p>
-<pre><code> $ python citygml2id.py udx/luse/523723_luse_6668.gml udx/luse/523723_luse_6668_zl20.csv --grid-type zfxy --extract --extrude -10.0 100.0
+<li><p>使用例5：2次元の空間ID（地理院タイル(XYZタイル)）が付与されたCityGMLファイルから空間IDを抽出し、3次元の空間ID（ZFXYタイル）を生成する</p>
+<pre><code> $python citygml2id.py ../examples/citygml/udx/urf/urf_yoto_sample.gml ../examples/citygml/udx/urf/spatialid/urf_yoto_sample_zl20_3D.csv --grid-type zfxy --extract --extrude -10.0 100.0
 </code></pre>
 <ul>
-<li>入力：523723_luse_6668.gml</li>
-<li>出力：523723_luse_6668_zl20.csv</li>
+<li>入力：urf_yoto_sample.gml</li>
+<li>出力：urf_yoto_sample_zl20_3D.csv</li>
 <li>空間IDを生成する標高値の範囲：-10mから100m</li>
 </ul>
+<p>※ examplesディレクトリのサンプルデータで動作を確認できます。事前に使用例2と使用例4を実行しておいてください。</p>
 </li>
 </ol>
 <h2 id="ビューア部">ビューア部</h2>
@@ -252,6 +253,7 @@
 <p>3D都市モデルや空間ID（ボクセル）をクリックすると属性情報が表示されます。</p>
 <p><img src="../resources/viewer04.png" alt=""></p>
 <p>※ 3D都市モデル、空間IDの順にアップロードした場合、空間IDのメタデータに3D都市モデルの属性情報が付与されます。</p>
+<p>※ ビューアで表示する3D都市モデルは、FME Hubで公開されているFMEワークスペース<a href="https://hub.safe.com/?page=1&amp;page_size=10&amp;order=relevance&amp;query=plateau">PLATEAU2可視化用データ変換</a>によって変換されたCesium 3D Tiles データセット (3Dモデル) または Mapbox Vector Tile (MVT) データセット (2Dポリゴン)を使用します。JSON属性にgml:idが記録されていない場合は、このワークスペースを編集し出力してください。</p>
 </li>
 </ol>
 </article>

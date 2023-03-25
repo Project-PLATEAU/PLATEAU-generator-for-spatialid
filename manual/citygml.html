@@ -201,29 +201,31 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例1: ファイル単位で変換する</p>
-<pre><code> $ python citygml2id.py udx/bldg/52372215_bldg_6697.gml udx/bldg/spatialid/52372215_bldg_6697_zl22_merged.csv --grid-type zfxy --grid-level22 --merge --interpolate
+<li><p>使用例1: ファイルを指定し実行する</p>
+<pre><code> $ python citygml2id.py ../examples/citygml/udx/bldg/building_sample.gml ../examples/citygml/udx/bldg/spatialid/building_sample_zl23_merged.csv --grid-type zfxy --grid-level 23 --interpolate --merge
 </code></pre>
 <ul>
-<li>入力：52372215_bldg_6697.gml【3D都市モデル(CityGML)】</li>
-<li>出力：52372215_bldg_6697_zl22_merged.csv【地物IDと空間IDのペアリスト(CSV)】</li>
+<li>入力：building_sample.gml【3D都市モデル(CityGML)】</li>
+<li>出力：building_sample_zl23_merged.csv</li>
 <li>グリッドタイプ：ZFXY</li>
-<li>基準（最大）ズームレベル：22</li>
+<li>基準（最大）ズームレベル：23</li>
 <li>空洞部の空間ID生成：実施</li>
 <li>ズームレベル最適化：実施</li>
 </ul>
+<p>※ examplesディレクトリのサンプルデータで動作を確認できます。</p>
 </li>
-<li><p>使用例2: 標準製品仕様書が規定するフォルダ構成に対し一括処理をする</p>
-<pre><code> $ python citygml2id.py udx/bldg udx/bldg --grid-type zfxy --grid-level 20 –interpolate
- $ python citygml2id.py udx/fld udx/fld --grid-type zfxy --grid-level 20
+<li><p>使用例2: フォルダに対し一括処理をする</p>
+<pre><code> $ python citygml2id.py ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg --grid-type zfxy --grid-level 23 --interpolate --merge
+ $ python citygml2id.py ../examples/citygml/udx/urf ../examples/citygml/udx/urf --grid-type zfxy --grid-level 20
 </code></pre>
 <ul>
-<li>入力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
-<li>出力：gmlファイルが存在するフォルダの直下にspatialidフォルダを生成し、CSVファイルを格納</li>
+<li>入力：bldgフォルダ（建築物）とurfフォルダ（都市計画決定情報）</li>
+<li>出力：gmlファイルが存在するフォルダ直下にspatialidフォルダを生成しCSVファイルを格納</li>
 <li>グリッドタイプ：ZFXY</li>
-<li>基準（最大ズームレベル）：20</li>
+<li>基準（最大）ズームレベル：bldgフォルダに対しては23、urfフォルダに対しては20</li>
 <li>空洞部の空間ID生成：Solid形状の建築物にのみ実施</li>
 </ul>
+<p>※ examplesディレクトリのサンプルデータで動作を確認できます。</p>
 </li>
 </ol>
 <h2 id="citygml-および-地物idgml_idと空間idのペアリストから空間idが付与されたcitygmlを生成">CityGML および 地物ID（gml_id）と空間IDのペアリストから空間IDが付与されたCityGMLを生成</h2>
@@ -295,26 +297,28 @@
 </tbody>
 </table>
 </li>
-<li><p>使用例1: ファイル単位で変換する</p>
-<pre><code> $ python id2citygml.py udx/bldg/52372215_bldg_6697.gml udx/bldg/spatialid/52372215_bldg_6697_zl20.csv udx/bldg/52372215_bldg_6697.gml --spatialid both
+<li><p>使用例3: ファイルを指定し実行する</p>
+<pre><code> $ python id2citygml.py ../examples/citygml/udx/bldg/building_sample.gml ../examples/citygml/udx/bldg/spatialid/building_sample_zl23_merged.csv ../examples/citygml/udx/bldg/building_sample.gml --spatialid both
 </code></pre>
 <ul>
-<li>入力：52372215_bldg_6697.gml</li>
-<li>地物IDと空間IDのペアリスト（CSV）：52372215_bldg_6697_zl20.csv</li>
-<li>出力：52372215_bldg_6697.gml</li>
+<li>入力：building_sample.gml</li>
+<li>地物IDと空間IDのペアリスト（CSV）：building_sample_zl23_merged.csv</li>
+<li>出力：building_sample.gml（ファイルを更新）</li>
 <li>空間IDの付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方</li>
 </ul>
+<p>※ examplesディレクトリのサンプルデータで動作を確認できます。事前に使用例1又は使用例2を実行しておいてください。</p>
 </li>
-<li><p>使用例2: 標準製品仕様書が規定するフォルダ構成に対し一括処理をする</p>
-<pre><code> $ python id2citygml.py udx/bldg udx/bldg udx/bldg --spatialid both
- $ python id2citygml.py udx/fld udx/fld udx/fld --spatialid both
+<li><p>使用例4: フォルダに対し一括処理をする</p>
+<pre><code> $ python id2citygml.py ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg ../examples/citygml/udx/bldg --spatialid both
+ $ python id2citygml.py ../examples/citygml/udx/urf ../examples/citygml/udx/urf ../examples/citygml/udx/urf --spatialid both
 </code></pre>
 <ul>
-<li>入力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
-<li>地物IDと空間IDのペアリスト（CSV）：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）内にあるspatialidフォルダ</li>
-<li>出力：bldgフォルダ（建築物）とfldフォルダ（洪水浸水想定）</li>
+<li>入力：bldgフォルダ（建築物）とurfフォルダ（都市計画決定情報）</li>
+<li>地物IDと空間IDのペアリスト（CSV）：bldgフォルダとurfフォルダ内にあるspatialidフォルダ</li>
+<li>出力：bldgフォルダとurfフォルダ（フォルダ内のcitygmlファイルを更新）</li>
 <li>空間ID付与方法：CityGMLへの直接付与と外部ファイル参照（相対パス埋め込み）の両方</li>
 </ul>
+<p>※ examplesディレクトリのサンプルデータで動作を確認できます。なお、使用例2を事前に実行しておいてください。</p>
 </li>
 </ol>
 </article>
