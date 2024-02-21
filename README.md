@@ -381,4 +381,4 @@
 
 ## 参考資料
 
-* （近日公開）技術検証レポート: https://www.mlit.go.jp/plateau/libraries/technical-reports/
+* [PLATEAUのための空間ID生成ツール 技術検証レポート](https://www.mlit.go.jp/plateau/file/libraries/doc/plateau_tech_doc_0055_ver01.pdf)
